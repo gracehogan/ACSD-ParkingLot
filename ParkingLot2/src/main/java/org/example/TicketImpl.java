@@ -42,7 +42,4 @@ public class TicketImpl implements Ticket{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         exitTime = LocalDateTime.parse(time, formatter);
     }
-
-
-
 }
