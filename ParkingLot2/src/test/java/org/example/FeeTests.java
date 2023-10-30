@@ -29,4 +29,18 @@ public class FeeTests {
 
         assertEquals(fee, uut.calculateFee(ticket));
     }
+
+    @ParameterizedTest
+    @CsvSource({"2023-09-01 09:00, 2023-09-25 15:00, 24, 6, 0, 594"})
+    public void testPremiumTermParkingLotFee(String entryTime, String exitTime, int days, int hours, int minutes, int fee) {
+        ParkingLot uut = new PremiumLot();
+        ticket.setEntryTime(entryTime);
+        ticket.setExitTime(exitTime);
+
+        when(ticket.getDays()).thenReturn(days);
+        when(ticket.getHours()).thenReturn(hours);
+        when(ticket.getMinutes()).thenReturn(minutes);
+
+        assertEquals(fee, uut.calculateFee(ticket));
+    }
 }

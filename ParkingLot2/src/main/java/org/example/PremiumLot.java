@@ -12,7 +12,34 @@ public class PremiumLot implements ParkingLot {
 //        There is no pro-ration
 //        Daily max is $27
 //        Every 7th day or fraction thereof is free.  (ie, a stay of 13 days and 4 hours will be billed for 12 days
+        double days = ticket.getDays();
+        int hours = ticket.getHours();
+        int minutes = ticket.getMinutes();
 
-        return 0;
+        int hourlyCharge = 4;
+        int maxDailyCharge = 27;
+        int hourlyChargeCap = 6;
+
+        int fee = 0;
+        if (days == 0 && hours == 0) {
+            return fee;
+        }
+        else {
+            fee += days * maxDailyCharge;
+
+            if (hours > hourlyChargeCap || (hours == hourlyChargeCap && minutes > 0)) {
+                fee += maxDailyCharge;
+            } else {
+                fee += hours * hourlyCharge;
+
+                if (minutes > 0) {
+                    fee += hourlyCharge;
+                }
+            }
+        }
+
+        return fee;
     }
+
+
 }
