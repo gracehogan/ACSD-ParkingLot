@@ -17,15 +17,15 @@ public class FeeTests {
     }
 
     @ParameterizedTest
-    @CsvSource({"2023-09-28 14:15, 2023-09-28 18:22, 10"})
-    public void testLongTermParkingLotFee(String entryTime, String exitTime, int fee) {
+    @CsvSource({"2023-09-28 14:15, 2023-09-28 18:22, 0, 4, 7, 10"})
+    public void testLongTermParkingLotFee(String entryTime, String exitTime, int days, int hours, int minutes, int fee) {
         ParkingLot uut = new LongTermParkingLot();
         ticket.setEntryTime(entryTime);
         ticket.setExitTime(exitTime);
 
-        when(ticket.getDays()).thenReturn(0);
-        when(ticket.getHours()).thenReturn(4);
-        when(ticket.getMinutes()).thenReturn(7);
+        when(ticket.getDays()).thenReturn(days);
+        when(ticket.getHours()).thenReturn(hours);
+        when(ticket.getMinutes()).thenReturn(minutes);
 
         assertEquals(fee, uut.calculateFee(ticket));
     }
