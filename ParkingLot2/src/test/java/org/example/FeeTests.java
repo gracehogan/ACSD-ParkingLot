@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FeeTests {
     Ticket ticket;
-    int fee;
 
     @BeforeEach
     public void setup() {
@@ -19,11 +18,15 @@ public class FeeTests {
 
     @ParameterizedTest
     @CsvSource({"2023-09-28 14:15, 2023-09-28 18:22, 10"})
-    public void testLongTermParkingLotFee(String entryTime, String exitTime, int expectedFee) {
+    public void testLongTermParkingLotFee(String entryTime, String exitTime, int fee) {
         ParkingLot uut = new LongTermParkingLot();
         ticket.setEntryTime(entryTime);
         ticket.setExitTime(exitTime);
-        when(uut.calculateFee(ticket)).thenReturn(fee);
-        assertEquals(expectedFee, fee);
+
+        when(ticket.getDays()).thenReturn(0);
+        when(ticket.getHours()).thenReturn(4);
+        when(ticket.getMinutes()).thenReturn(7);
+
+        assertEquals(fee, uut.calculateFee(ticket));
     }
 }
