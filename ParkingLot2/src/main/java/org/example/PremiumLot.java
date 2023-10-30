@@ -19,12 +19,12 @@ public class PremiumLot implements ParkingLot {
         int hourlyCharge = 4;
         int maxDailyCharge = 27;
         int hourlyChargeCap = 6;
+        int freeDayInterval = 7;
 
         int fee = 0;
-        if (days == 0 && hours == 0) {
-            return fee;
-        }
-        else {
+            if (days % freeDayInterval == 0) {
+                days -= days / freeDayInterval;
+            }
             fee += days * maxDailyCharge;
 
             if (hours > hourlyChargeCap || (hours == hourlyChargeCap && minutes > 0)) {
@@ -36,10 +36,7 @@ public class PremiumLot implements ParkingLot {
                     fee += hourlyCharge;
                 }
             }
-        }
 
         return fee;
     }
-
-
 }
